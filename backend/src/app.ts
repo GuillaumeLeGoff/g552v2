@@ -1,14 +1,13 @@
 import cors from "cors";
-import { config } from "dotenv";
 import express from "express";
 import "reflect-metadata";
 import { ErrorMiddleware } from "./middlewares/error.middleware";
 import { extractUser } from './middlewares/extractUser.middleware';
 import routes from "./routes/routes";
 
-config();
 const app = express();
-const port: number = process.env.PORT ? parseInt(process.env.PORT) : 4000;
+
+const port: number = process.env.API_PORT ? parseInt(process.env.API_PORT) : 4000;
 
 app.use(cors());
 app.use(extractUser);
