@@ -4,7 +4,7 @@ import fs from "fs";
 import jwt from "jsonwebtoken";
 import path from "path";
 import { Service } from "typedi";
-import { LoginUserDto, RegisterDto } from "./auth.validation";
+import { RegisterDto, LoginUserDto } from "./auth.validation";
 import { HttpException } from "../../exceptions/HttpException";
 
 
@@ -68,7 +68,7 @@ export class AuthService {
       },
     });
 
-    const uploadDir = path.join(__dirname, `${process.env.UPLOAD_DIR}${user.username}`);
+    const uploadDir = path.resolve(__dirname, process.env.UPLOAD_DIR, user.username);
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
@@ -76,6 +76,8 @@ export class AuthService {
   }
 
   async login(credentials: LoginUserDto): Promise<string> {
+    console.log();
+    
     const user = await prisma.user.findUnique({
       where: { username: credentials.username },
       include: { activeSessions: true },
@@ -96,7 +98,6 @@ export class AuthService {
     let activeSession = await prisma.activeSession.findFirst({
       where: { id: 1 },
     });
-
     const active_token_verify = jwt.verify(
       activeSession.active_token,
       process.env.JWT_SECRET,

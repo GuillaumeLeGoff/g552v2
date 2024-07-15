@@ -12,7 +12,7 @@ model ActiveSession {
   user_id       Int?
   active_token  String?
   last_activity DateTime?
-  user          User?     @relation(fields: [user_id], references: [id])
+  user          User?     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model PlaylistMedia {
@@ -72,13 +72,16 @@ model Media {
   path               String
   format             String
   type               String
+  thumbnail_path     String?        
+  thumbnail_name     String?         // Added thumbnail_name field
   size               Int
   uploaded_at        DateTime        @updatedAt()
   user_id            Int
+  folder_id          Int?
   user               User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
   Playlist_media     PlaylistMedia[]
-  folder_id          Int?
   folder             Folder?         @relation(fields: [folder_id], references: [id], onDelete: Cascade)
+  
 }
 
 model Mode {
