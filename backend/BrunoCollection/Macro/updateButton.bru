@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{host}}/api/user-setting/5
+  url: {{host}}/macro/1
   body: json
   auth: bearer
 }
@@ -16,7 +16,6 @@ auth:bearer {
 
 body:json {
   {
-    "language": "FR",
-    "event_auto": true
+    "button_id":1
   }
 }

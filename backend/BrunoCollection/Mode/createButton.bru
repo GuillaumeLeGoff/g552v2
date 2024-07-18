@@ -1,11 +1,11 @@
 meta {
-  name: createFolder
+  name: createButton
   type: http
   seq: 1
 }
 
 post {
-  url: {{host}}/folder
+  url: {{host}}/mode
   body: json
   auth: bearer
 }
@@ -15,8 +15,6 @@ auth:bearer {
 }
 
 body:json {
-  {
-    "name": "soussoussou",
-    "parent_id":14
-  }
+  
+  
 }
