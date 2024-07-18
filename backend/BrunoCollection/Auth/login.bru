@@ -5,19 +5,20 @@ meta {
 }
 
 post {
-  url: {{host}}/api/auth/login
+  url: {{host}}/auth/login
   body: json
   auth: bearer
 }
 
 body:json {
   {
-      "username": "test",
+      "username": "gui9",
       "password": "123456789"
   }
 }
 
 script:post-response {
+  
   bru.setEnvVar("token",res.body.data)
   
 }

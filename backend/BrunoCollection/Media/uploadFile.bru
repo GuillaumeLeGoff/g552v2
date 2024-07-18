@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{host}}/api/button
+  url: {{host}}/media
   body: multipartForm
   auth: bearer
 }
@@ -21,5 +21,5 @@ body:json {
 }
 
 body:multipart-form {
-  file: 
+  file: @file(C:\Users\stage2\Videos\Chats rigolos garantis pour vous faire rire.mp4)
 }
