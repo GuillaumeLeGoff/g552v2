@@ -13,7 +13,4 @@ export class CreatePlaylistDto {
   @MaxLength(32)
   public name: string;
 
-  @IsNotEmpty()
-  @IsNumber()
-  public user_id: number;
 }

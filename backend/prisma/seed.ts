@@ -1,6 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import "reflect-metadata";
+import { PrismaClient } from "@prisma/client";
+import { AuthService } from "../src/components/auth/auth.service"; // Assurez-vous que le chemin est correct
+import { Container } from "typedi";
+import { RegisterDto } from "../src/components/auth/auth.validation"; // Assurez-vous que le chemin est correct
 
 const prisma = new PrismaClient();
+const authService = Container.get(AuthService);
 
 async function main() {
   const buttons = Array.from({ length: 16 }, (_, i) => ({
@@ -18,7 +23,7 @@ async function main() {
     active_token: null,
   };
 
-  if (Object.values(activeSessionData).some(value => value !== null)) {
+  if (Object.values(activeSessionData).some((value) => value !== null)) {
     await prisma.activeSession.create({
       data: activeSessionData,
     });
@@ -31,13 +36,18 @@ async function main() {
     restart_at: 0,
   };
 
-  if (Object.values(globalSettingData).some(value => value !== 0)) {
+  if (Object.values(globalSettingData).some((value) => value !== 0)) {
     await prisma.globalSetting.create({
       data: globalSettingData,
     });
   }
-}
 
+  const userData: RegisterDto = {
+    username: "admin",
+    password: "admin",
+  };
+  await authService.register(userData);
+}
 
 main()
   .catch((e) => {

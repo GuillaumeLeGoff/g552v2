@@ -1,8 +1,8 @@
 import { Playlist } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { Inject, Service } from "typedi";
-import { PlaylistService } from "../services/playlist.service";
-import { CreatePlaylistDto } from "../validation/playlist.validation";
+import { PlaylistService } from "./playlist.service";
+import { CreatePlaylistDto } from "./playlist.validation";
 
 @Service()
 export class PlaylistController {

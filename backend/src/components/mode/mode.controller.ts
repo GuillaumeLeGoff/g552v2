@@ -14,7 +14,7 @@ export class ModeController {
     next: NextFunction
   ) => {
     try {
-      const modeData = req.body;
+      const modeData: UpdateModeDto = req.body;
       const newMode: Mode = await this.modeService.createMode(modeData);
       res.status(201).json({ data: newMode, message: "created" });
     } catch (error) {
