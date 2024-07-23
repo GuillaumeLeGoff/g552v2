@@ -1,6 +1,6 @@
 import { PrismaClient, Playlist } from "@prisma/client";
 import { Service } from "typedi";
-import { CreatePlaylistDto } from "../validation/playlist.validation";
+import { CreatePlaylistDto } from "./playlist.validation";
 
 const prisma = new PrismaClient();
 

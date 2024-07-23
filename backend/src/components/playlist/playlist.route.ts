@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { Container } from "typedi";
-import { PlaylistController } from "../controllers/playlist.controller";
-import { authMiddleware } from "../middlewares/auth.middleware";
+import { PlaylistController } from "./playlist.controller";
+import { authMiddleware } from "../../middlewares/auth.middleware";
 
 const router = Router();
 

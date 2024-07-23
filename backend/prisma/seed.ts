@@ -1,8 +1,11 @@
-import { PrismaClient } from '@prisma/client';
-import { AuthService } from '../src/components/auth/auth.service';
-import { RegisterDto } from '../src/components/auth/auth.validation';
+import "reflect-metadata";
+import { PrismaClient } from "@prisma/client";
+import { AuthService } from "../src/components/auth/auth.service"; // Assurez-vous que le chemin est correct
+import { Container } from "typedi";
+import { RegisterDto } from "../src/components/auth/auth.validation"; // Assurez-vous que le chemin est correct
 
 const prisma = new PrismaClient();
+const authService = Container.get(AuthService);
 
 async function main() {
   const existingButton = await prisma.button.findFirst();

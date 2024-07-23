@@ -1,12 +1,12 @@
 import { PrismaClient, Mode, Prisma } from "@prisma/client";
 import { Service } from "typedi";
-import { UpdateModeDto } from "./mode.validation";
+import { CreateModeDto, UpdateModeDto } from "./mode.validation";
 
 const prisma = new PrismaClient();
 
 @Service()
 export class ModeService {
-  public async createMode(modeData: Mode): Promise<Mode> {
+  public async createMode(modeData: CreateModeDto): Promise<Mode> {
     return prisma.mode.create({
       data: modeData,
     });

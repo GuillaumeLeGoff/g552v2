@@ -1,15 +1,21 @@
-import {
-  IsNotEmpty,
-  IsString
-} from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateModeDto {
   @IsString()
-  @IsNotEmpty()
-  public name: string;
+  @IsOptional()
+  public mode?: string;
+
+  @IsNumber()
+  @IsOptional()
+  public playlist_id?: number;
 }
 
 export class UpdateModeDto {
   @IsString()
-  public name?: string;
+  @IsOptional()
+  public mode?: string;
+
+  @IsNumber()
+  @IsOptional()
+  public playlist_id?: number;
 }
