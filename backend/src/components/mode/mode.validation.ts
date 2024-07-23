@@ -6,7 +6,7 @@ import {
 export class CreateModeDto {
   @IsString()
   @IsNotEmpty()
-  public mode: string;
+  public name: string;
 }
 
 export class UpdateModeDto {

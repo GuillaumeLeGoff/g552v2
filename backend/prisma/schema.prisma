@@ -73,7 +73,7 @@ model Media {
   format             String
   type               String
   thumbnail_path     String?        
-  thumbnail_name     String?         // Added thumbnail_name field
+  thumbnail_name     String?
   size               Int
   uploaded_at        DateTime        @updatedAt()
   user_id            Int
@@ -86,7 +86,7 @@ model Media {
 
 model Mode {
   id          Int       @id @default(autoincrement())
-  mode        String?
+  name        String?
   playlist_id Int?
   playlist    Playlist? @relation(fields: [playlist_id], references: [id], onDelete: Cascade)
 }
