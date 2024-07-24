@@ -2,19 +2,24 @@ import { Playlist } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { Inject, Service } from "typedi";
 import { PlaylistService } from "./playlist.service";
-import { CreatePlaylistDto } from "./playlist.validation";
+import { CreatePlaylistDto, UpdatePlaylistDto } from "./playlist.validation";
+import { UserType } from "../../types/user.type";
 
+interface CustomRequest extends Request {
+  user?: UserType;
+}
 @Service()
 export class PlaylistController {
   constructor(
     @Inject(() => PlaylistService) private playlistService: PlaylistService
   ) {}
 
-  createPlaylist = async (req: Request, res: Response, next: NextFunction) => {
+  createPlaylist = async (req: CustomRequest, res: Response, next: NextFunction) => {
     try {
-      const playlistData = req.body as CreatePlaylistDto;
+      const playlistData: CreatePlaylistDto = req.body
       const newPlaylist: Playlist = await this.playlistService.createPlaylist(
-        playlistData
+        playlistData,
+        req.user
       );
       res.status(201).json({ data: newPlaylist, message: "created" });
     } catch (error) {
@@ -37,10 +42,10 @@ export class PlaylistController {
     }
   };
 
-  getAllPlaylists = async (req: Request, res: Response, next: NextFunction) => {
+  getAllPlaylists = async (req: CustomRequest, res: Response, next: NextFunction) => {
     try {
       const playlists: Playlist[] =
-        await this.playlistService.getAllPlaylists();
+        await this.playlistService.getAllPlaylists(req.user);
       res.status(200).json({ data: playlists, message: "found" });
     } catch (error) {
       next(error);
@@ -50,7 +55,7 @@ export class PlaylistController {
   updatePlaylist = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const playlistId: number = parseInt(req.params.playlistId);
-      const playlistData = req.body as CreatePlaylistDto;
+      const playlistData: UpdatePlaylistDto = req.body
       const updatedPlaylist: Playlist | null =
         await this.playlistService.updatePlaylist(playlistId, playlistData);
       if (!updatedPlaylist) {

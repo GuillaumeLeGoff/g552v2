@@ -1,6 +1,6 @@
 import {
   IsNotEmpty,
-  IsNumber,
+  IsOptional,
   IsString,
   MaxLength,
   MinLength,
@@ -13,4 +13,12 @@ export class CreatePlaylistDto {
   @MaxLength(32)
   public name: string;
 
+}
+
+export class UpdatePlaylistDto {
+  @IsOptional()
+  @IsString()
+  @MinLength(1)
+  @MaxLength(32)
+  public name?: string;
 }

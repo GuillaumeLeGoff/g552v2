@@ -3,6 +3,7 @@ import { Service } from "typedi";
 import { HttpException } from "../../exceptions/HttpException";
 import { UpdateMediaDto } from "./media.validation";
 import { log } from "console";
+import { UserType } from "../../types/user.type";
 
 const prisma = new PrismaClient();
 
@@ -34,8 +35,12 @@ export class MediaService {
     }
   }
 
-  async findAllMedias(): Promise<Media[]> {
-    return prisma.media.findMany();
+  async findAllMedias(user: UserType): Promise<Media[]> {
+    return prisma.media.findMany({
+      where: {
+        user_id: user.id,
+      },
+    });
   }
 
   async findMedia(mediaId: number): Promise<Media> {

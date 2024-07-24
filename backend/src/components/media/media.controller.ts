@@ -28,9 +28,9 @@ export class MediaController {
     }
   };
 
-  getAllMedia = async (req: Request, res: Response, next: NextFunction) => {
+  getAllMedia = async (req: CustomRequest, res: Response, next: NextFunction) => {
     try {
-      const media = await this.mediaService.findAllMedias();
+      const media = await this.mediaService.findAllMedias(req.user);
       res.status(200).json({ data: media, message: "findAll" });
     } catch (error) {
       next(error);

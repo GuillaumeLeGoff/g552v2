@@ -1,9 +1,13 @@
 import { PlaylistMedia } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { Inject, Service } from "typedi";
-import { PlaylistMediaService } from "../services/playlist-media.service";
-import { CreatePlaylistMediaDto } from "../validation/playlistMedia.validation";
+import { PlaylistMediaService } from "./playlist-media.service";
+import { CreatePlaylistMediaDto, UpdatePlaylistMediaDto } from "./playlistMedia.validation";
+import { UserType } from "../../types/user.type";
 
+interface CustomRequest extends Request {
+  user?: UserType;
+}
 @Service()
 export class PlaylistMediaController {
   constructor(
@@ -12,12 +16,12 @@ export class PlaylistMediaController {
   ) {}
 
   createPlaylistMedia = async (
-    req: Request,
+    req: CustomRequest,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const playlistMediaData = req.body as CreatePlaylistMediaDto;
+      const playlistMediaData: CreatePlaylistMediaDto = req.body
       const newPlaylistMedia: PlaylistMedia =
         await this.playlistMediaService.createPlaylistMedia(playlistMediaData);
       res.status(201).json({ data: newPlaylistMedia, message: "created" });
@@ -46,13 +50,13 @@ export class PlaylistMediaController {
   };
 
   getAllPlaylistMedias = async (
-    req: Request,
+    req: CustomRequest,
     res: Response,
     next: NextFunction
   ) => {
     try {
       const playlistMedias: PlaylistMedia[] =
-        await this.playlistMediaService.getAllPlaylistMedias();
+        await this.playlistMediaService.getAllPlaylistMedias(req.user);
       res.status(200).json({ data: playlistMedias, message: "found" });
     } catch (error) {
       next(error);
@@ -60,13 +64,13 @@ export class PlaylistMediaController {
   };
 
   updatePlaylistMedia = async (
-    req: Request,
+    req: CustomRequest,
     res: Response,
     next: NextFunction
   ) => {
     try {
       const playlistMediaId: number = parseInt(req.params.playlistMediaId);
-      const playlistMediaData = req.body as CreatePlaylistMediaDto;
+      const playlistMediaData: UpdatePlaylistMediaDto = req.body
       const updatedPlaylistMedia: PlaylistMedia | null =
         await this.playlistMediaService.updatePlaylistMedia(
           playlistMediaId,

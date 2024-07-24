@@ -1,13 +1,20 @@
 import { PrismaClient, PlaylistMedia } from "@prisma/client";
 import { Service } from "typedi";
-import { CreatePlaylistMediaDto } from "../validation/playlistMedia.validation";
+import { CreatePlaylistMediaDto, UpdatePlaylistMediaDto } from "./playlistMedia.validation";
+import { UserType } from "../../types/user.type";
 
 const prisma = new PrismaClient();
 
 @Service()
 export class PlaylistMediaService {
-  async getAllPlaylistMedias(): Promise<PlaylistMedia[]> {
-    const playlistMedias = await prisma.playlistMedia.findMany();
+  async getAllPlaylistMedias(user: UserType): Promise<PlaylistMedia[]> {
+    const playlistMedias = await prisma.playlistMedia.findMany({
+      where: {
+        playlist: {
+          user_id: user.id,
+        },
+      },
+    });
     return playlistMedias;
   }
 
@@ -19,7 +26,7 @@ export class PlaylistMediaService {
   }
 
   async createPlaylistMedia(
-    playlistMediaData: CreatePlaylistMediaDto
+    playlistMediaData: CreatePlaylistMediaDto,
   ): Promise<PlaylistMedia> {
     const playlistMedia = await prisma.playlistMedia.create({
       data: {
@@ -34,13 +41,11 @@ export class PlaylistMediaService {
 
   async updatePlaylistMedia(
     id: number,
-    playlistMediaData: CreatePlaylistMediaDto
+    playlistMediaData: UpdatePlaylistMediaDto
   ): Promise<PlaylistMedia | null> {
     const playlistMedia = await prisma.playlistMedia.update({
       where: { id },
       data: {
-        media_id: playlistMediaData.media_id,
-        playlist_id: playlistMediaData.playlist_id,
         media_dur_in_playlist: playlistMediaData.media_dur_in_playlist,
         media_pos_in_playlist: playlistMediaData.media_pos_in_playlist,
       },
