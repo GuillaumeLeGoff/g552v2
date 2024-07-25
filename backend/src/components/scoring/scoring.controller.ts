@@ -1,21 +1,25 @@
 import { Scoring } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { Inject, Service } from "typedi";
-import { ScoringService } from "../services/scoring.service";
-import { CreateScoringDto } from "../validation/scoring.validation";
+import { ScoringService } from "./scoring.service";
+import { CreateScoringDto, UpdateScoringDto } from "./scoring.validation";
+import { UserType } from "../../types/user.type";
 
+interface CustomRequest extends Request {
+  user?: UserType;
+}
 @Service()
 export class ScoringController {
   constructor(
     @Inject(() => ScoringService) private scoringService: ScoringService
   ) {}
 
-  createScoring = async (req: Request, res: Response, next: NextFunction) => {
+  createScoring = async (req: CustomRequest, res: Response, next: NextFunction) => {
     console.log("createScoring");
 
     try {
-      const scoringData = req.body as CreateScoringDto;
-      const newScoring = await this.scoringService.createScoring(scoringData);
+      const scoringData: CreateScoringDto = req.body;
+      const newScoring = await this.scoringService.createScoring(scoringData, req.user);
       res.status(201).json({ data: newScoring, message: "created" });
     } catch (error) {
       console.log("createScoring error", error);
@@ -24,10 +28,10 @@ export class ScoringController {
     }
   };
 
-  findAllScorings = async (req: Request, res: Response, next: NextFunction) => {
+  findAllScoring = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const scorings = await this.scoringService.findAllScorings();
-      res.status(200).json({ data: scorings, message: "findAll" });
+      const scoring = await this.scoringService.findAllScoring();
+      res.status(200).json({ data: scoring, message: "findAll" });
     } catch (error) {
       next(error);
     }
@@ -46,7 +50,7 @@ export class ScoringController {
   updateScoring = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      const scoringData = req.body as Scoring;
+      const scoringData: UpdateScoringDto = req.body;
       const updatedScoring = await this.scoringService.updateScoring(
         parseInt(id),
         scoringData

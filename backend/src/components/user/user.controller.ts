@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { Inject, Service } from "typedi";
-import { UserService } from "../services/users.service";
+import { UserService } from "./user.service";
 
 @Service()
 export class UserController {

@@ -1,7 +1,7 @@
 import { PrismaClient, User } from "@prisma/client";
 import { Service } from "typedi";
 import bcrypt from "bcrypt";
-import { HttpException } from "../exceptions/HttpException"; // Make sure the import path is correct
+import { HttpException } from "../../exceptions/HttpException"; // Make sure the import path is correct
 const prisma = new PrismaClient();
 @Service()
 export class UserService {

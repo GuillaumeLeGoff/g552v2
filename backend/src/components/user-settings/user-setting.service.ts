@@ -1,7 +1,7 @@
 import { log } from "console";
 import { PrismaClient, UserSetting } from "@prisma/client";
 import { Service } from "typedi";
-import { HttpException } from "../exceptions/HttpException";
+import { HttpException } from "../../exceptions/HttpException";
 const prisma = new PrismaClient();
 @Service()
 export class UserSettingService {

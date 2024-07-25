@@ -1,13 +1,13 @@
 import { PrismaClient, Playlist } from "@prisma/client";
 import { Service } from "typedi";
-import { CreatePlaylistDto } from "./playlist.validation";
+import { CreatePlaylistDto, UpdatePlaylistDto } from "./playlist.validation";
 import { UserType } from "../../types/user.type";
 
 const prisma = new PrismaClient();
 
 @Service()
 export class PlaylistService {
-  async getUserPlaylists(user: UserType): Promise<Playlist[]> {
+  async getAllPlaylists(user: UserType): Promise<Playlist[]> {
     const playlists = await prisma.playlist.findMany({
       where: {
         user_id: user.id,
@@ -33,14 +33,12 @@ export class PlaylistService {
         user_id: user.id,
       },
     });
-    console.log(playlist);
-
     return playlist;
   }
 
   async updatePlaylist(
     id: number,
-    playlistData: CreatePlaylistDto
+    playlistData: UpdatePlaylistDto
   ): Promise<Playlist | null> {
     const playlist = await prisma.playlist.update({
       where: { id },

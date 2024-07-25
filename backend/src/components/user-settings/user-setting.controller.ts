@@ -2,8 +2,8 @@ import { log } from "console";
 import { UserSetting } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { Inject, Service } from "typedi";
-import { UserSettingService } from "../services/user-setting.service";
-import { CreateUserSettingDto } from "../validation/user-setting.validation";
+import { UserSettingService } from "./user-setting.service";
+import { CreateUserSettingDto } from "./user-setting.validation";
 
 @Service()
 export class UserSettingController {

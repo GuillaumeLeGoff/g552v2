@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { Container } from "typedi";
-import { UserSettingController } from "../controllers/user-setting.controller";
-import { validateDto } from "../middlewares/validation.middleware";
+import { UserSettingController } from "./user-setting.controller";
+import { validateDto } from "../../middlewares/validation.middleware";
 import {
   CreateUserSettingDto,
   UpdateUserSettingDto,
-} from "../validation/user-setting.validation";
-import { authMiddleware } from "../middlewares/auth.middleware";
+} from "./user-setting.validation";
+import { authMiddleware } from "../../middlewares/auth.middleware";
 
 const router = Router();
 

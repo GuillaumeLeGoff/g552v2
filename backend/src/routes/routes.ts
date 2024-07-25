@@ -7,6 +7,10 @@ import macroRouter from "../components/macro/macro.route";
 import mediaRouter from "../components/media/media.route";
 import modeRouter from "../components/mode/mode.route";
 import playlistRouter from "../components/playlist/playlist.route";
+import playlistMediaRouter from "../components/playlist-media/playlist-media.route";
+import scoringRouter from "../components/scoring/scoring.route";
+import userSettingRouter from "../components/user-settings/user-setting.route";
+import userRouter from "../components/user/user.route";
 
 const app = express();
 
@@ -18,5 +22,9 @@ app.use("/macro", macroRouter);
 app.use("/media", mediaRouter);
 app.use("/mode", modeRouter);
 app.use("/playlist", playlistRouter);
+app.use("/playlist-media", playlistMediaRouter);
+app.use("/scoring", scoringRouter);
+app.use("/user-setting", userSettingRouter);
+app.use("/user", userRouter);
 
 export default app;

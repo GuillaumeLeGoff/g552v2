@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { Container } from "typedi";
-import { UserController } from "../controllers/users.controller";
-import { validateDto } from "../middlewares/validation.middleware";
-import { CreateUserDto, UpdateUserDto } from "../validation/users.validation";
-import { authMiddleware } from "../middlewares/auth.middleware";
+import { UserController } from "./user.controller";
+import { validateDto } from "../../middlewares/validation.middleware";
+import { CreateUserDto, UpdateUserDto } from "./user.validation";
+import { authMiddleware } from "../../middlewares/auth.middleware";
 const router = Router();
 
 const userController = Container.get(UserController);

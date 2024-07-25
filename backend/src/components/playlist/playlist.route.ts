@@ -2,12 +2,14 @@ import { Router } from "express";
 import { Container } from "typedi";
 import { PlaylistController } from "./playlist.controller";
 import { authMiddleware } from "../../middlewares/auth.middleware";
+import { validateDto } from "../../middlewares/validation.middleware";
+import { CreatePlaylistDto, UpdatePlaylistDto } from "./playlist.validation";
 
 const router = Router();
 
 const playlistController = Container.get(PlaylistController);
 
-router.post("/", authMiddleware, (req, res, next) =>
+router.post("/", authMiddleware, validateDto(CreatePlaylistDto), (req, res, next) =>
   playlistController.createPlaylist(req, res, next)
 );
 
@@ -19,7 +21,7 @@ router.get("/", authMiddleware, (req, res, next) =>
   playlistController.getUserPlaylists(req, res, next)
 );
 
-router.put("/:playlistId", authMiddleware, (req, res, next) =>
+router.put("/:playlistId", authMiddleware, validateDto(UpdatePlaylistDto), (req, res, next) =>
   playlistController.updatePlaylist(req, res, next)
 );
 
