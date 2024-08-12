@@ -14,9 +14,13 @@ export class PlaylistController {
     @Inject(() => PlaylistService) private playlistService: PlaylistService
   ) {}
 
-  createPlaylist = async (req: CustomRequest, res: Response, next: NextFunction) => {
+  createPlaylist = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      const playlistData: CreatePlaylistDto = req.body
+      const playlistData: CreatePlaylistDto = req.body;
       const newPlaylist: Playlist = await this.playlistService.createPlaylist(
         playlistData,
         req.user
@@ -27,7 +31,11 @@ export class PlaylistController {
     }
   };
 
-  getPlaylistById = async (req: Request, res: Response, next: NextFunction) => {
+  getPlaylistById = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const playlistId: number = parseInt(req.params.playlistId);
       const playlist: Playlist | null =
@@ -42,10 +50,15 @@ export class PlaylistController {
     }
   };
 
-  getAllPlaylists = async (req: CustomRequest, res: Response, next: NextFunction) => {
+  getAllPlaylists = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      const playlists: Playlist[] =
-        await this.playlistService.getAllPlaylists(req.user);
+      const playlists: Playlist[] = await this.playlistService.getAllPlaylists(
+        req.user
+      );
       res.status(200).json({ data: playlists, message: "found" });
     } catch (error) {
       next(error);
@@ -55,7 +68,7 @@ export class PlaylistController {
   updatePlaylist = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const playlistId: number = parseInt(req.params.playlistId);
-      const playlistData: UpdatePlaylistDto = req.body
+      const playlistData: UpdatePlaylistDto = req.body;
       const updatedPlaylist: Playlist | null =
         await this.playlistService.updatePlaylist(playlistId, playlistData);
       if (!updatedPlaylist) {

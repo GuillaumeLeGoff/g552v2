@@ -12,7 +12,6 @@ export class CreatePlaylistDto {
   @MinLength(1)
   @MaxLength(32)
   public name: string;
-
 }
 
 export class UpdatePlaylistDto {

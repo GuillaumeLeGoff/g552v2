@@ -18,7 +18,7 @@ router.get("/:playlistId", authMiddleware, (req, res, next) =>
 );
 
 router.get("/", authMiddleware, (req, res, next) =>
-  playlistController.getAllPlaylists(req, res, next)
+  playlistController.getUserPlaylists(req, res, next)
 );
 
 router.put("/:playlistId", authMiddleware, validateDto(UpdatePlaylistDto), (req, res, next) =>

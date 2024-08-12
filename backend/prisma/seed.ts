@@ -1,11 +1,9 @@
 import "reflect-metadata";
 import { PrismaClient } from "@prisma/client";
 import { AuthService } from "../src/components/auth/auth.service"; // Assurez-vous que le chemin est correct
-import { Container } from "typedi";
 import { RegisterDto } from "../src/components/auth/auth.validation"; // Assurez-vous que le chemin est correct
 
 const prisma = new PrismaClient();
-const authService = Container.get(AuthService);
 
 async function main() {
   const existingButton = await prisma.button.findFirst();
@@ -26,8 +24,8 @@ async function main() {
   const existingUser = await prisma.user.findFirst();
   if (!existingUser) {
     const userData: RegisterDto = {
-      username: 'admin',
-      password: 'password',
+      username: "admin",
+      password: "password",
     };
 
     await authService.register(userData);
@@ -59,7 +57,7 @@ async function main() {
   }
 
   const modeData = {
-    name: 'default',
+    name: "default",
   };
 
   const existingMode = await prisma.mode.findFirst();

@@ -23,7 +23,10 @@ export class PlaylistService {
     return playlist;
   }
 
-  async createPlaylist(playlistData: CreatePlaylistDto, user: UserType): Promise<Playlist> {
+  async createPlaylist(
+    playlistData: CreatePlaylistDto,
+    user: UserType
+  ): Promise<Playlist> {
     const playlist = await prisma.playlist.create({
       data: {
         name: playlistData.name,

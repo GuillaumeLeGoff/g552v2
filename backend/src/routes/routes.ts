@@ -29,5 +29,4 @@ app.use("/user-setting", userSettingRouter);
 app.use("/user", userRouter);
 app.use('/uploads', express.static(path.resolve(__dirname, '../../uploads')));
 
-
 export default app;
