@@ -1,3 +1,4 @@
 import LoginFormComponent from "./LoginFormComponent";
+import FirstLoginFormComponent from "./FirstLoginFormComponent";
 
-export { LoginFormComponent };
+export { LoginFormComponent, FirstLoginFormComponent };

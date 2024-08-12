@@ -11,6 +11,7 @@ import playlistMediaRouter from "../components/playlist-media/playlist-media.rou
 import scoringRouter from "../components/scoring/scoring.route";
 import userSettingRouter from "../components/user-settings/user-setting.route";
 import userRouter from "../components/user/user.route";
+import path from "path";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/playlist-media", playlistMediaRouter);
 app.use("/scoring", scoringRouter);
 app.use("/user-setting", userSettingRouter);
 app.use("/user", userRouter);
+app.use('/uploads', express.static(path.resolve(__dirname, '../../uploads')));
 
 
 export default app;

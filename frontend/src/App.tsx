@@ -1,16 +1,11 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import React, { useState, useEffect } from "react";
 import { routes } from "@/routes";
 
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
 const App = () => {
-  const [hasToken, setHasToken] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setHasToken(!!token);
-  }, []);
 
-  const router = createBrowserRouter(routes(hasToken));
+  const router = createBrowserRouter(routes());
 
   return (
     <>

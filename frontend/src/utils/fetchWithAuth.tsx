@@ -21,7 +21,6 @@ const fetchWithAuth = async (url: string, method: string, body?: JSON) => {
 
     if (!response.ok) {
       if (response.status === 401) {
-        // déconnecter l'utilisateur et rediriger vers la page de connexion
         localStorage.removeItem("token");
         window.location.href = "/login";
       } else {

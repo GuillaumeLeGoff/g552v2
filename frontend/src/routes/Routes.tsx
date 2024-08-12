@@ -1,24 +1,30 @@
 import { loginRoutes } from "@/features/auth";
 import { Root } from "@/routes";
 import { Navigate, Outlet } from "react-router-dom";
+import useAuthStore from "@/stores/authStore";
 
-const routes = (hasToken: boolean) => [
-  {
-    path: "/",
-    element: hasToken ? (
-      <>
-        <Outlet />
-        <Root />
-      </>
-    ) : (
-      <Navigate to="/login" />
-    ),
-  },
-  {
-    path: "/login",
-    element: <Outlet />,
-    children: loginRoutes,
-  },
-];
+const Routes = () => {
+  const { token } = useAuthStore();
 
-export default routes;
+
+  return [
+    {
+      path: "/",
+      element: token ? (
+        <>
+          <Outlet />
+          <Root />
+        </>
+      ) : (
+        <Navigate to="/login" />
+      ),
+    },
+    {
+      path: "/login",
+      element: <Outlet />,
+      children: loginRoutes,
+    },
+  ];
+};
+
+export default Routes;
